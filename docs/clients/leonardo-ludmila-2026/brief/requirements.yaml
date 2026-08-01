@@ -1,0 +1,20 @@
+requirements:
+  - id: REQ-0001
+    room_id: sala
+    source: cliente
+    statement: Mesa moderna para seis lugares.
+    priority: high
+    status: confirmed
+    verification: Presente nas vistas aprovadas e na especificação.
+    evidence:
+      - brief do cliente
+
+  - id: REQ-0002
+    room_id: sala
+    source: cliente
+    statement: Cadeiras revestidas em suede verde.
+    priority: high
+    status: confirmed
+    verification: Material e cor identificados no conceito e memorial.
+    evidence:
+      - referência visual 01

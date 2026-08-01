@@ -3,95 +3,102 @@
 Data: 2026-08-01
 Status do Design DNA associado: `in-review` (rascunho preliminar, pendente de validação da arquiteta)
 
+## 0. Changelog / cronologia
+
+- **v1/v2 (curadoria anterior)**: Design DNA construído a partir de 18 documentos de 8 `client_project`. A categoria comercial/residencial de cada projeto era **inferida do conteúdo** dos documentos (menções a "clínica", "loja", nomes de ambiente, etc.), não fornecida diretamente pela arquiteta.
+- **v3 (esta curadoria)**: A arquiteta reorganizou o acervo bruto em `docs/knowledge-base/raw-pdfs/Comercial/<projeto>/` e `docs/knowledge-base/raw-pdfs/Residencial/<projeto>/`. O `ingest-library` foi reexecutado e agora todo documento em `catalog.json`/`manifest.json` carrega um campo explícito e autoritativo `project_category` ("Comercial" ou "Residencial"). Os `document_id` também mudaram (prefixo por categoria, ex. `comercial-clinicapatricia-2026-...`, `residencial-gabi-2024-...`). Esta versão **releu o catálogo do zero** e recalculou os padrões usando essa categorização explícita, com foco em: (a) separar claramente o que é padrão residencial, comercial ou de ambos os segmentos; (b) sinalizar padrões observados apenas nos 2 projetos comerciais como não-generalizáveis, mesmo quando tecnicamente atingem o piso numérico de "confiança média"; (c) corrigir algumas atribuições de projeto que se mostraram equivocadas ao re-verificar diretamente o texto extraído (ver seção 6).
+- Os 8 `client_project` e a contagem de documentos são os mesmos da v2 — o que mudou é a fonte de verdade da categorização (autoritativa vs. inferida) e o nível de granularidade da análise por segmento, não a amostra em si.
+
 ## 1. Metodologia
 
 1. Fonte: `docs/knowledge-base/extracted/`, contendo 18 documentos técnicos (`document.txt` extraído de PDF + imagens de página) provenientes de 8 pastas de cliente (`client_project`) distintas, listadas em `docs/knowledge-base/extracted/catalog.json`.
-2. Para cada termo de material/cor/iluminação/marcenaria/composição candidato a padrão, foi feita busca (`grep`) em todos os 18 `document.txt` e contado: (a) número total de ocorrências, (b) número de documentos com pelo menos 1 ocorrência, (c) número de **`client_project` distintos** com pelo menos 1 ocorrência.
-3. Regra de confiança aplicada (conforme instrução da tarefa):
+2. Categoria de cada projeto confirmada diretamente no `catalog.json` (campo `project_category`, presente em todos os 18 registros de documento): **Comercial** para ClinicaPatricia-2026 e Tavora-2026 (5 documentos); **Residencial** para Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Rafael-Mariana-2026 e Sandra (13 documentos).
+3. Para cada termo de material/cor/iluminação/marcenaria/composição candidato a padrão, foi feita busca em `document.txt` de cada documento e contado: (a) número de ocorrências, (b) `client_project` distintos com pelo menos 1 ocorrência, (c) — **novo nesta passada** — se a ocorrência está em um `client_project` **Comercial**, **Residencial**, ou ambos.
+4. Regra de confiança:
    - **Alta confiança**: padrão presente em ≥ 3 `client_project` distintos.
    - **Confiança média**: padrão presente em exatamente 2 `client_project` distintos.
-   - **Evidência insuficiente / preferência do cliente**: padrão presente em apenas 1 `client_project`. Esses casos foram deliberadamente mantidos fora de `signature_patterns`/`principles` como regra geral e documentados em `confidence_notes.insufficient_evidence`.
-4. Padrões de documentação (estrutura de prancha, nomenclatura, notas padrão) foram identificados por leitura direta de trechos de `document.txt` (blocos de identificação, sequência de páginas, notas repetidas) e confirmados por busca de recorrência entre projetos.
-5. Imagens (`pages/*.jpg`, `embedded-images/*`) não foram revisadas de forma exaustiva nesta passada — o escopo desta análise foi majoritariamente textual, conforme orientação da tarefa. Onde a evidência textual foi insuficiente para caracterizar estilização visual (cor de tapete, padronagem etc.), isso foi registrado como pendência em `confidence_notes.insufficient_evidence`.
+   - **Evidência insuficiente / preferência do cliente**: padrão presente em apenas 1 `client_project`.
+   - **Regra adicional desta passada**: um padrão presente apenas nos 2 projetos comerciais (2/2) **não** é promovido a "alta confiança geral" nem tratado como assinatura ampla — é marcado explicitamente como "observado em contexto comercial (amostra: 2/2 projetos comerciais), não extrapolar para residencial sem mais evidência" (ver `confidence_notes.commercial_sample_caution` no YAML). Padrões residenciais têm base de 6 projetos — mais robusta que a comercial, mas ainda abaixo do mínimo recomendado de 10-20.
+5. Vários termos-chave foram reverificados com buscas diretas por documento (não apenas por agregação) especificamente para confirmar presença/ausência em cada um dos 2 documentos de cada projeto comercial, dado que esse é o eixo central desta rodada de curadoria.
+6. Imagens (`pages/*.jpg`, `embedded-images/*`) não foram revisadas de forma exaustiva nesta passada — o escopo permanece majoritariamente textual.
 
-### Aviso importante sobre o tamanho da amostra
+## 2. Projetos-fonte e cobertura documental (categoria confirmada em catalog.json)
 
-Esta base tem **apenas 8 projetos-fonte** (18 documentos, ~1.201 páginas). O guia de curadoria do acervo recomenda 10-20 projetos como base representativa mínima. Portanto, **todo o Design DNA gerado a partir desta rodada é preliminar/rascunho**, não uma conclusão definitiva. Padrões classificados aqui como "alta confiança" o são apenas em relação ao critério interno de recorrência entre ≥3 dos 8 projetos disponíveis — e podem mudar de classificação (ou ser refutados) à medida que mais projetos forem ingeridos e a arquiteta revisar o conteúdo.
-
-## 2. Projetos-fonte e cobertura documental
-
-| # | client_project | Tipo (inferido) | Documentos | Páginas totais |
+| # | client_project | Categoria (autoritativa) | Documentos | Páginas totais |
 |---|---|---|---|---|
-| 1 | ClinicaPatricia-2026 | Comercial (clínica estética) | 3: `clinicapatricia-2026-detalhamento-patricia-dias---compl` (63p), `clinicapatricia-2026-layout-a4-vistas` (106p), `clinicapatricia-2026-projeto-executivo-a3` (16p) | 185 |
-| 2 | Clodoaldo-Vanusa-2025 | Residencial | 2: `clodoaldo-vanusa-2025-detalhamento-completo` (64p), `clodoaldo-vanusa-2025-executivo-completo` (91p) | 155 |
-| 3 | Debora-Deivisson-2026 | Residencial | 2: `debora-deivisson-2026-detalhamento-dd` (36p), `debora-deivisson-2026-executivo-dd` (71p) | 107 |
-| 4 | Gabi-2024 | Residencial (apto Evolution, Buritis/BH) | 3: `gabi-2024-detalhamento-final-ga` (81p), `gabi-2024-executivo-a3---geral` (18p), `gabi-2024-executivo-final-ga` (142p) | 241 |
-| 5 | Patricia-Rafael-2025 | Residencial | 3: `patricia-rafael-2025-detalhamento` (40p), `patricia-rafael-2025-executivo-pr-a3` (23p), `patricia-rafael-2025-layout-pr` (101p) | 164 |
-| 6 | Rafael-Mariana-2026 | Residencial (Apto R\|M, Jaraguá/BH) | 2: `rafael-mariana-2026-detalhamento-rm` (46p), `rafael-mariana-2026-rafael-e-mariana-executivo` (88p) | 134 |
-| 7 | Sandra | Residencial (Casa S\|G, Cond. Estância do Lago) | 1: `sandra-sg-det-geral` (143p) | 143 |
-| 8 | Tavora-2026 | Comercial (loja/joalheria) | 2: `tavora-2026-detalhamento-tavora-joias` (24p), `tavora-2026-projeto-executivo-távora-joias` (48p) | 72 |
-| | **Total** | | **18 documentos** | **1.201 páginas** |
+| 1 | ClinicaPatricia-2026 | **Comercial** (clínica estética) | 3: `comercial-clinicapatricia-2026-detalhamento-patricia-dias---compl` (63p), `comercial-clinicapatricia-2026-layout-a4-vistas` (106p), `comercial-clinicapatricia-2026-projeto-executivo-a3` (16p) | 185 |
+| 2 | Tavora-2026 | **Comercial** (loja/joalheria) | 2: `comercial-tavora-2026-detalhamento-tavora-joias` (24p), `comercial-tavora-2026-projeto-executivo-távora-joias` (48p) | 72 |
+| 3 | Clodoaldo-Vanusa-2025 | Residencial | 2: `residencial-clodoaldo-vanusa-2025-detalhamento-completo` (64p), `residencial-clodoaldo-vanusa-2025-executivo-completo` (91p) | 155 |
+| 4 | Debora-Deivisson-2026 | Residencial | 2: `residencial-debora-deivisson-2026-detalhamento-dd` (36p), `residencial-debora-deivisson-2026-executivo-dd` (71p) | 107 |
+| 5 | Gabi-2024 | Residencial (apto Evolution, Buritis/BH) | 3: `residencial-gabi-2024-detalhamento-final-ga` (81p), `residencial-gabi-2024-executivo-a3---geral` (18p), `residencial-gabi-2024-executivo-final-ga` (142p) | 241 |
+| 6 | Patricia-Rafael-2025 | Residencial | 3: `residencial-patricia-rafael-2025-detalhamento` (40p), `residencial-patricia-rafael-2025-executivo-pr-a3` (23p), `residencial-patricia-rafael-2025-layout-pr` (101p) | 164 |
+| 7 | Rafael-Mariana-2026 | Residencial (Apto R\|M, Jaraguá/BH) | 2: `residencial-rafael-mariana-2026-detalhamento-rm` (46p), `residencial-rafael-mariana-2026-rafael-e-mariana-executivo` (88p) | 134 |
+| 8 | Sandra | Residencial (Casa S\|G, Cond. Estância do Lago) | 1: `residencial-sandra-sg-det-geral` (143p) | 143 |
+| | **Total** | **6 residenciais + 2 comerciais** | **18 documentos** | **1.201 páginas** |
 
-Observação de escopo: 6 dos 8 projetos são residenciais e 2 são comerciais (clínica e loja). Padrões observados apenas em ClinicaPatricia-2026 e/ou Tavora-2026 (ex.: fachada) podem refletir convenções de projeto comercial e foram sinalizados como tal, não generalizados para residências.
+## 3. Padrões residenciais vs. comerciais — comparação direta
 
-## 3. Padrões recorrentes (alta confiança — ≥3 projetos distintos)
+Esta seção resume o que mudou de granularidade em relação à v2, com a categoria agora confirmada em vez de inferida.
 
-Cada item abaixo cita o(s) `document_id` mais representativos como evidência (lista completa de projetos no `design-dna.yaml`).
+### 3.1 Padrões presentes em AMBOS os segmentos (alta confiança, robustos nos 2/2 comerciais)
 
-- **MDF (marca Duratex) como substrato dominante de marcenaria** — 1.940 ocorrências de "MDF" em 17/18 documentos, 8/8 projetos; "DURATEX" citado nominalmente em 575 ocorrências, 9 documentos, 8/8 projetos. Evidência: `gabi-2024-detalhamento-final-ga` (pág. 2, "APARADOR EM MDF BRANCO DIAMANTE - DURATEX"); `rafael-mariana-2026-detalhamento-rm` (pág. 3, "MDF CARVALHO HANOVER - DURATEX", "MDF CINZA FÓSSIL - DURATEX").
-- **Fita de LED embutida contínua** — 328 ocorrências, 18/18 documentos, 8/8 projetos. Evidência: `rafael-mariana-2026-detalhamento-rm` (pág. 3, "COM CAVA LATERAL PARA FITA DE LED EMBUTIDA (NÃO DEIXAR LED APARENTE)").
-- **Temperatura de cor especificada (2700K/3000K)** — 144-149 ocorrências, 16/18 documentos, 8/8 projetos. Evidência: `rafael-mariana-2026-detalhamento-rm` (pág. 3, "FITA DE LED 2700K").
-- **Nichos embutidos em marcenaria/gesso** — 185 ocorrências, 14/18 documentos, 8/8 projetos.
-- **Bancada com cuba (mármore/pedra)** — "BANCADA": 237 ocorrências/18 documentos/8 projetos; "CUBA": 103 ocorrências/17 documentos/8 projetos; "MÁRMORE": 67 ocorrências/11 documentos/7 projetos (falta apenas Tavora-2026).
-- **Porcelanato em pisos/revestimentos** — 124 ocorrências, 14 documentos, 7/8 projetos (falta apenas Rafael-Mariana-2026).
-- **Vidro (boxes, guarda-corpos, tampos)** — 262 ocorrências, 17 documentos, 8/8 projetos.
-- **Painel ripado como revestimento** — 145 ocorrências, 14 documentos, 7/8 projetos (falta apenas Rafael-Mariana-2026). Evidência: `gabi-2024-detalhamento-final-ga` (pág. 2, rótulo "Ripado" em detalhe de aparador).
-- **Puxador com marca/acabamento definidos, majoritariamente Zen Design** — "PUXADOR": 576 ocorrências/15 documentos/8 projetos; marca "ZEN DESIGN": 106 ocorrências/8 documentos/7 projetos (falta apenas Debora-Deivisson-2026). Evidência: `gabi-2024-detalhamento-final-ga` (pág. 2, "PUXADOR PLYMOUTH DOURADO- ZEN DESING").
-- **Dourado / dourado fosco como metal de assinatura** — "DOURADO": 481 ocorrências/17 documentos/8 projetos; "DOURADO FOSCO": 117 ocorrências/11 documentos/6 projetos.
-- **Preto / preto fosco como cor de contraste** — "PRETO": 426 ocorrências/17 documentos/7-8 projetos; "PRETO FOSCO": 137 ocorrências/12 documentos/6 projetos.
-- **Branco/off-white como base cromática** — "BRANCO": 686 ocorrências/18 documentos/8 projetos; "OFF WHITE": 107 ocorrências/7 documentos/5 projetos.
-- **Rebaixo de forro em gesso** — 173 ocorrências, 13 documentos, 8/8 projetos.
-- **Painel de TV como peça central de sala** — 46 ocorrências, 10 documentos, 6/8 projetos.
-- **Ilha de cozinha** — 42 ocorrências, 11 documentos, 6/8 projetos.
-- **Cabeceira como peça central de quarto** — 187 ocorrências, 11 documentos, 6/8 projetos.
-- **Tinta Suvinil especificada nominalmente** — 159 ocorrências, 11 documentos, 7/8 projetos.
-- **Bloco de identificação de prancha padronizado** ("Jeniffer Melo Arquitetura", telefone, e-mail, CAU A186976-0, campos PROJETO/DATA/FOLHA/CLIENTE/DESENHO/ARQUITETA) — 1.188 ocorrências, 18/18 documentos, 8/8 projetos.
-- **Grafia "PESPECTIVA" (sem "r") em vez de "PERSPECTIVA"** — 392 ocorrências, 14 documentos, 8/8 projetos. Este é um hábito de nomenclatura pessoal muito consistente e um bom identificador de autenticidade de documento. Evidência: `rafael-mariana-2026-detalhamento-rm` (pág. 2, campo DESENHO = "Pespectiva").
-- **Convenção de prancha (vista topo + vista A + vista B + perspectiva, cada uma com escala própria)** — "VISTA TOPO": 426 ocorrências, 8 documentos de detalhamento, 8/8 projetos. Evidência: `rafael-mariana-2026-detalhamento-rm` (pág. 3).
-- **Nota "CONFIRMAR MEDIDAS NO LOCAL ANTES DA EXECUÇÃO"** — 103 ocorrências, 10 documentos, 7/8 projetos.
-- **Callout de material no padrão "\<PEÇA\> EM/NO \<MATERIAL\> \<COR\> - \<MARCA\>"** — confirmado consistentemente em amostras de todos os projetos revisados em detalhe.
+Verificados diretamente documento a documento: MDF/Duratex, cuba, nicho, vidro, puxador Zen Design, porcelanato, painel ripado, tinta Suvinil, nota "CONFIRMAR MEDIDAS...", convenção de prancha (vista topo + vista A + vista B + perspectiva), grafia "PESPECTIVA", bloco de identificação padrão, dourado fosco, fita de LED, temperatura de cor 2700K/3000K, bancada+cuba, e — reclassificado nesta passada — **espelho** (ver seção 6).
+
+### 3.2 Padrões EXCLUSIVOS do segmento residencial (0/2 nos projetos comerciais, verificado por busca direta com zero ocorrências)
+
+Painel de TV, cabeceira, ilha de cozinha, closet, mesa de jantar, área gourmet, bege, trilho eletrificado (luminária), perfil de alumínio estrutural. Muitos desses são exclusivos por definição de programa (clínica e loja não têm "quarto", "sala de TV" ou "cozinha com ilha" no mesmo sentido de uma residência) — não é uma fraqueza do padrão, é um padrão condicionado ao tipo de ambiente.
+
+### 3.3 Padrões observados nos 2/2 projetos comerciais mas com evidência residencial fraca ou distinta — NÃO generalizar
+
+- **Fachada como prancha dedicada com índice e sequência de vistas** — 2/2 comercial, mas apenas 1/6 residencial (Patricia-Rafael-2025) com estrutura equivalente e completa; os outros 5 residenciais têm zero menções.
+- **Estrutura completa do índice executivo por ambiente** ("PLANTA DE LAYOUT E TÉCNICA \<AMBIENTE\>" etc.) — evidência textual completa em apenas 1 dos 2 projetos comerciais (ClinicaPatricia-2026); não confirmada nem em Tavora-2026 nem em nenhum residencial.
+
+### 3.4 Padrões assimétricos DENTRO do próprio segmento comercial (2 projetos, mas discordantes entre si)
+
+- **Preto fosco**: presente em Tavora-2026, ausente em ClinicaPatricia-2026.
+- **Mármore**: presente em ClinicaPatricia-2026, ausente em Tavora-2026.
+- **Painel orgânico (nome literal)**: presente em ClinicaPatricia-2026, ausente em Tavora-2026.
+- **Off-white**: presente em ClinicaPatricia-2026, ausente em Tavora-2026.
+
+Isso reforça que "comercial" não é um bloco monolítico — com apenas 2 projetos, generalizações sobre "o que a arquiteta faz em projetos comerciais" são especialmente arriscadas.
 
 ## 4. Padrões condicionais
 
-- Quando o ambiente é **sala de estar/TV** → painel de marcenaria com nicho para TV + fita de LED perimetral (6/8 projetos).
-- Quando o ambiente é **banheiro, lavabo ou cozinha** → bancada em mármore/pedra com cuba de apoio ou esculpida (7-8/8 projetos).
-- Quando há **espelho decorativo** em áreas sociais/banheiros → tende a vir emoldurado por perfil metálico dourado fosco ou preto fosco (evidenciado em ClinicaPatricia-2026, Rafael-Mariana-2026 e Sandra — 3/8 projetos).
-- Quando o projeto é **comercial** (ClinicaPatricia-2026, Tavora-2026) → a documentação inclui prancha dedicada de fachada e índice de pranchas por ambiente no formato "PLANTA DE LAYOUT E TÉCNICA \<AMBIENTE\>" + "VISTAS \<AMBIENTE\>" (evidência textual completa em `clinicapatricia-2026-layout-a4-vistas`, páginas 1-2). Essa estrutura não deve ser presumida para fachada residencial, sem evidência equivalente no acervo atual.
-- Quando a prancha é de **detalhamento de marcenaria** → segue sempre a convenção fixa vista topo/vista A/vista B/perspectiva + nota de confirmação de medidas em obra (8/8 projetos).
+Ver `conditional_patterns` no `design-dna.yaml` (reescrito nesta passada). Resumo: room_patterns de programa residencial (sala de TV, quarto, ilha, jantar, closet) são condicionados à existência desses ambientes no programa — ausentes por definição nos 2 comerciais; documentação de fachada é condicionada a existir fachada no escopo do projeto (sempre nos 2 comerciais, só 1/6 nos residenciais); a convenção de prancha (vista topo/A/B/perspectiva) e as notas padronizadas de obra são universais, independentes de segmento.
 
-## 5. Exceções e observações de cautela
+## 5. Exceções e observações de cautela (herdadas e atualizadas da v2)
 
-- **"Branco Gatinho efeito veludo"** — este é exatamente o tipo de callout citado como exemplo na tarefa, e a análise confirma que ele é uma **exceção clássica de confusão cliente-vs-arquiteta**: aparece 88 vezes, mas só em documentos de **1 único client_project** (ClinicaPatricia-2026: `clinicapatricia-2026-detalhamento-patricia-dias---compl`, páginas 4-6; `clinicapatricia-2026-layout-a4-vistas`, páginas 4 e 22). Foi mantido fora de `signature_patterns.colors` e registrado em `insufficient_evidence`.
-- **Efeito "veludo" (VELVET) de pintura** — 84 ocorrências, mas 83 delas concentradas em ClinicaPatricia-2026; a única outra menção (`patricia-rafael-2025-layout-pr`, 1 ocorrência) é fraca demais para confirmar um padrão de 2 projetos com robustez. Tratado como preferência de cliente.
-- **"Grafite"/"Chumbo" como cor de marcenaria** — só em Gabi-2024. Preferência pontual do cliente, não da arquiteta.
-- **Marca de tinta "Coral"** — só em ClinicaPatricia-2026 (a arquiteta usa predominantemente Suvinil nos demais projetos). Possível decisão específica de cliente ou de fornecedor local desse projeto.
-- **"Painel orgânico" como nome literal de produto** (vs. o princípio mais amplo de curva/forma orgânica) — a frase exata "PAINEL ORGÂNICO" está concentrada em apenas 2 projetos (ClinicaPatricia-2026 e Debora-Deivisson-2026, 38 ocorrências), enquanto o termo mais genérico "orgânico/orgânica" (que inclui curvas, formatos, sancas orgânicas etc.) aparece em 6-8 projetos. Isso sugere que o **princípio formal** (curvas orgânicas) é da arquiteta, mas o **nome de produto específico** "painel orgânico em gesso" pode ser mais um vocabulário adotado nesses 2 projetos — vale confirmar com a arquiteta se ela usa esse nome sistematicamente ou não.
-- **Estrutura completa do índice executivo** ("PLANTA DE DEMOLIÇÃO E CONSTRUÇÃO", "PLANTA DE PONTOS HIDRÁULICOS" etc.) — evidência textual completa apenas em ClinicaPatricia-2026; embora nomenclaturas parecidas apareçam em Gabi-2024, Patricia-Rafael-2025 e Rafael-Mariana-2026, não há garantia de que a sequência completa seja idêntica nesses projetos (pode ser limitação de extração de texto do índice, não ausência real do padrão).
-- **avoid_patterns não pôde ser preenchido**: os documentos registram apenas decisões executadas. As únicas ocorrências do termo "evitar" encontradas no corpus referem-se a coordenação técnica de obra (ex.: "A EXECUÇÃO DO FORRO DEVE SER REALIZADA CONJUNTAMENTE COM A PLANTA DE ILUMINAÇÃO PARA EVITAR INCOMPATIBILIDADES ENTRE PONTOS DE LUZ E RECORTES NO GESSO" — `clinicapatricia-2026-projeto-executivo-a3`, ~linha 561; "PINGADEIRA METÁLICA NAS BORDAS DO VIDRO PARA EVITAR RETORNO DA ÁGUA" — `patricia-rafael-2025-detalhamento`, ~linha 2560), não a preferências estéticas evitadas. Isso ficou registrado como pendência explícita para a arquiteta.
+- **"Branco Gatinho efeito veludo"** e **efeito "veludo" (pintura) de forma geral** seguem como exceção clássica de preferência de 1 único client_project (ClinicaPatricia-2026). Verificação adicional nesta passada: as menções a "veludo" em Tavora-2026 (o outro projeto comercial) referem-se a TECIDO de estofado ("TECIDO VELUDO") e a joias em veludo, não a acabamento de pintura — portanto, mesmo dentro do comercial, o efeito veludo de pintura continua isolado a 1 projeto. Isso reforça, e não enfraquece, a conclusão da v2 de que é preferência pontual do cliente, não assinatura.
+- **"Grafite"/"Chumbo"** e **marca de tinta "Coral"** seguem como preferências pontuais de 1 client_project cada (Gabi-2024 e ClinicaPatricia-2026, respectivamente).
+- **"Painel orgânico" (produto nomeado)** — concentrado em 2 client_projects (1 comercial: ClinicaPatricia-2026; 1 residencial: Debora-Deivisson-2026); confirmado ausente no outro projeto comercial (Tavora-2026). O princípio formal mais amplo de curvas orgânicas é bem mais difundido (ambos os segmentos).
+- **avoid_patterns não pôde ser preenchido** — mesma limitação da v2: o acervo registra decisões executadas, não recusadas.
 
-## 6. Itens de baixa confiança / pendências para a arquiteta revisar
+## 6. Correções em relação à v2 (descobertas na reverificação direta desta passada)
 
-Este é um **rascunho preliminar** (8 de 10-20 projetos recomendados). Antes de aprovar o Design DNA (mudar `status` para `approved`), pedimos que a arquiteta confirme ou corrija:
+Ao reler o acervo com o eixo residencial/comercial explícito, algumas atribuições específicas de projeto da v2 não se confirmaram em busca direta e foram corrigidas:
 
-1. **"Branco Gatinho efeito veludo"** e **"efeito veludo"** de pintura em geral — é uma cor/acabamento de assinatura pessoal que simplesmente ainda não apareceu em outros projetos do acervo, ou foi uma escolha específica para o conceito da Clínica Patrícia Dias?
-2. **"Grafite"/"Chumbo"** (Gabi-2024) e **tinta Coral** (ClinicaPatricia-2026) — preferências pontuais de cliente ou possíveis padrões da arquiteta ainda sub-representados na amostra?
-3. **Metalon/perfil tubular metálico**, **espelho decorativo com moldura metálica**, **trilho eletrificado**, **perfil de alumínio estrutural** e **nogueira/freijó** — todos atingem o piso técnico de "alta confiança" (≥3 projetos) mas com volume de citações baixo (7 a 25 ocorrências). Recomenda-se tratá-los como "média confiança" na prática até serem reforçados por mais projetos.
-4. **"Painel orgânico" (produto nomeado) vs. curvas orgânicas (princípio)** — pedir à arquiteta para confirmar se "painel orgânico em gesso" é nomenclatura padrão dela ou específica de 2 projetos.
-5. **Fachada residencial** — não há evidência no acervo atual (só fachada comercial, em 2 projetos). Nenhuma regra foi criada para `room_patterns.fachada` além do alerta.
-6. **Área externa** — evidência fraca e genérica (4/8 projetos, sem detalhamento). Precisa de mais amostra para virar padrão.
-7. **Estilização de renders (styling)** — tapete/almofada/vaso aparecem em 7/8 projetos, mas o texto extraído não permite caracterizar cor, padronagem ou composição desses itens. Requer revisão manual das imagens de página (`pages/*.jpg`) pela arquiteta, ou um passe de visão computacional dedicado, fora do escopo desta análise textual.
-8. **Sustentabilidade** — nenhuma evidência textual encontrada (materiais certificados, reaproveitamento etc.). Campo deixado vazio propositalmente.
-9. **`avoid_patterns` está vazio** — a arquiteta precisa listar explicitamente materiais/cores/composições que evita, pois isso não é dedutível de projetos executados.
-10. **Estrutura completa do índice de pranchas executivas** — confirmar se a sequência vista em ClinicaPatricia-2026 (perspectiva → demolição/construção → piso/acabamentos → hidráulica → elétrica → forro → iluminação → imagens → por ambiente → fachada → notas) é de fato o padrão universal dela, mesmo quando não capturado integralmente em texto nos outros projetos.
+1. **Ilha de cozinha**: a v2 listava ClinicaPatricia-2026 entre os 6 projetos com "ilha". Busca direta nos 3 documentos de ClinicaPatricia-2026 e nos 2 de Tavora-2026 encontrou **zero** ocorrências do termo. O padrão é, portanto, exclusivo do residencial (5/6 projetos residenciais, não "6/8 incluindo 1 comercial").
+2. **Trilho eletrificado**: a v2 atribuía este padrão também a ClinicaPatricia-2026. A única ocorrência de "TRILHO" nesse projeto é "EMBUTIR TRILHO DA PORTA RENTE AO PISO" — trilho de porta de correr (marcenaria/vidro), não luminária. O padrão de trilho eletrificado (luminária) é, portanto, exclusivamente residencial (2/6 projetos: Gabi-2024, Patricia-Rafael-2025), 0/2 comercial.
+3. **Espelho**: a v2 classificava este padrão como "confiança média, 3/8 projetos" (ClinicaPatricia-2026, Rafael-Mariana-2026, Sandra). Busca direta encontrou o termo em pelo menos mais 4 documentos/projetos não contabilizados pela v2 (Clodoaldo-Vanusa-2025: 11 ocorrências; Gabi-2024: 24; Debora-Deivisson-2026: 2; Patricia-Rafael-2025: 15), além de confirmar Tavora-2026 (6 ocorrências). Reclassificado para alta confiança, ambos os segmentos — com a ressalva de que o texto não permite confirmar se é sempre espelho decorativo com moldura ou uso genérico do termo.
+4. **Tinta Suvinil / Coral**: a v2 dava a entender que ClinicaPatricia-2026 usava Coral em vez de Suvinil. Busca direta mostra que ambas as marcas coexistem no mesmo projeto (Suvinil presente em todos os documentos de ClinicaPatricia-2026, Coral aparece adicionalmente). Suvinil confirmado em ambos os projetos comerciais — não é exclusividade residencial.
+5. **Fachada residencial**: a v2 descrevia a evidência residencial como "uma citação isolada em Patricia-Rafael-2025". Busca direta mostra uma estrutura real (não isolada): índice "02. FACHADA", "Imagens Fachada" (3x), "Pespectiva - Fachada", "Planta Layout - Fachada" e uma sequência completa "Vista A/B/C/D - Fachada / Garagem", todos no mesmo `client_project`. Ainda é apenas 1/6 residenciais (evidência insuficiente para generalizar), mas a natureza da evidência é mais forte do que a v2 registrava.
 
-Recomenda-se manter `status: in-review` até que a arquiteta valide os itens acima e, idealmente, até que o acervo cresça para 10-20 projetos-fonte.
+Nenhuma dessas correções foi motivada pela mudança de categorização em si (a categoria de cada projeto já era conhecida na prática, mesmo que inferida) — elas emergiram da reverificação direta, documento a documento, motivada pelo maior rigor desta rodada em separar residencial de comercial termo a termo.
+
+## 7. Itens de baixa confiança / pendências para a arquiteta revisar
+
+Este é um **rascunho preliminar** (8 de 10-20 projetos recomendados; amostra comercial particularmente pequena, 2 projetos). Antes de aprovar o Design DNA (mudar `status` para `approved`), pedimos que a arquiteta confirme ou corrija:
+
+1. **"Branco Gatinho efeito veludo"** e **"efeito veludo"** de pintura — preferência pessoal ainda sub-representada, ou escolha específica da Clínica Patrícia Dias?
+2. **"Grafite"/"Chumbo"** (Gabi-2024) e **tinta Coral** (ClinicaPatricia-2026) — preferências pontuais de cliente ou padrões sub-representados?
+3. **Metalon, perfil de alumínio estrutural, nogueira/freijó, trilho eletrificado** — todos em "confiança média", volume de citações baixo. Nenhum tem evidência no segmento comercial exceto metalon e nogueira/freijó (ambos só em ClinicaPatricia-2026, não em Tavora-2026).
+4. **"Painel orgânico" (produto nomeado) vs. curvas orgânicas (princípio)** — confirmar se é nomenclatura padrão dela ou específica de 2 projetos (1 comercial, 1 residencial), já que nem o outro projeto comercial (Tavora-2026) usa o termo.
+5. **Fachada** — perguntar diretamente: a arquiteta documenta fachada sistematicamente em projetos residenciais que são casas (não apartamentos)? A amostra atual (1/6 residenciais) é compatível com essa hipótese mas não a confirma.
+6. **Área externa (jardim vs. gourmet)** — jardim aparece em 1/2 comercial + 3/6 residencial; gourmet é exclusivo residencial. Evidência ainda fraca para regras de composição.
+7. **Estilização de renders (styling)** — tapete/almofada/vaso aparecem amplamente, mas sem cor/padronagem no texto. Requer revisão manual de imagens.
+8. **Sustentabilidade** — nenhuma evidência textual encontrada. Campo deixado vazio propositalmente.
+9. **`avoid_patterns` está vazio** — a arquiteta precisa listar explicitamente o que evita.
+10. **Estrutura completa do índice de pranchas executivas** — evidência completa vem de um documento COMERCIAL (ClinicaPatricia-2026); confirmar se a mesma estrutura (incluindo bloco de fachada) é usada em cadernos residenciais, já que não foi possível confirmar isso textualmente em nenhum dos 6 projetos residenciais.
+11. **Espelho** — reclassificado para alta confiança nesta passada; confirmar com a arquiteta se de fato é um elemento decorativo recorrente com intenção de composição, ou se o termo aparece em contextos variados (espelho de banheiro genérico, "acabamento espelhado" etc.) que inflaram a contagem.
+
+Recomenda-se manter `status: in-review` até que a arquiteta valide os itens acima e, idealmente, até que o acervo cresça — sobretudo no segmento comercial, hoje com apenas 2 projetos-fonte.
