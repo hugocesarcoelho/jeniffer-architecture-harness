@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "requirements"
+  ],
+  "properties": {
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "room_id",
+          "source",
+          "statement",
+          "priority",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^REQ-[0-9]{4}$"
+          },
+          "room_id": {
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "cliente",
+              "arquiteta",
+              "planta",
+              "foto",
+              "referencia",
+              "tecnico",
+              "design-dna"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 3
+          },
+          "priority": {
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "status": {
+            "enum": [
+              "confirmed",
+              "inferred",
+              "pending",
+              "conflict",
+              "rejected"
+            ]
+          },
+          "verification": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+version: 1
+language: pt-BR
+output_root: docs/clients/{project_id}/output
+knowledge_base:
+  raw_pdfs: docs/knowledge-base/raw-pdfs
+  extracted: docs/knowledge-base/extracted
+  design_dna: docs/knowledge-base/design-dna/design-dna.yaml
+rendering:
+  provider: ${IMAGE_PROVIDER:-mock}
+  default_width: 1536
+  default_height: 1024
+  default_views_per_room: 2
+  preserve_previous_versions: true
+quality_gates:
+  require_client_manifest: true
+  require_atomic_requirements: true
+  block_on_missing_room_photos: false
+  block_on_unknown_dimensions: false
+  require_human_approval_before_detailing: true

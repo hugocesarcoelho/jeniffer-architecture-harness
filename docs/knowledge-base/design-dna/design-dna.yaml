@@ -1,0 +1,165 @@
+version: 2
+status: in-review
+architect: Jeniffer Melo (Jeniffer Melo Arquitetura, CAU A186976-0)
+last_reviewed: 2026-08-01
+
+scope:
+  project_types:
+    - "Residencial: apartamentos e casas (Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Rafael-Mariana-2026, Sandra)."
+    - "Comercial: clínica estética (ClinicaPatricia-2026) e loja/joalheria (Tavora-2026) — atenção: padrões observados nesses dois projetos podem refletir programa comercial (recepção, vitrine, fachada de loja) e não devem ser generalizados automaticamente para residências."
+  client_segments: []
+  regions:
+    - "Belo Horizonte, MG e região metropolitana — inferido do DDD (31) presente no bloco de identificação de todos os 18 documentos, e de menções explícitas a 'BH' em Gabi-2024 (Buritis;BH) e 'Bh' em Rafael-Mariana-2026 (Jaraguá - Bh)."
+
+principles:
+  spatial:
+    - "Ambientes organizados a partir de marcenaria integrada parede-a-parede (painel de TV, cabeceira, bancada) que funciona como eixo de composição do cômodo — alta confiança: painel de TV em 6/8 projetos, cabeceira em 6/8, bancada em 8/8 projetos."
+    - "Forro rebaixado em gesso com sanca/rasgo de luz perimetral usado para modular o pé-direito e ocultar fiação/pontos técnicos — alta confiança: rebaixo/forro em 8/8 projetos; sanca em 6/8 projetos."
+    - "Cada ambiente de marcenaria é sempre representado em múltiplas vistas simultâneas na mesma prancha (vista topo + vista A + vista B + perspectiva), cada uma com escala própria — alta confiança: convenção 'VISTA TOPO' presente em 8/8 projetos."
+  aesthetic:
+    - "Paleta predominantemente neutra (branco/off-white/bege) com metais dourado fosco e preto fosco como acabamento de contraste em puxadores e perfis — alta confiança: branco em 8/8 projetos, dourado em 8/8, dourado fosco em 6/8, preto fosco em 6/8."
+    - "Formas/curvas orgânicas usadas como contraponto à marcenaria retilínea — confiança média-alta: o princípio formal de curva/forma orgânica aparece em 6 a 8/8 projetos; já o produto nomeado literalmente 'painel orgânico em gesso' está concentrado sobretudo em 2 projetos (ClinicaPatricia-2026 e Debora-Deivisson-2026) — não tratar o nome exato do produto como assinatura universal, apenas o princípio formal mais amplo."
+    - "Elementos de estilização (tapete, almofada, vaso) usados para suavizar ambientes de marcenaria rígida — confiança média-alta: 7/8 projetos, mas com baixo detalhamento textual (cor/padronagem não especificados na maioria dos casos)."
+  functional:
+    - "Nota padronizada de verificação em obra ('CONFIRMAR MEDIDAS NO LOCAL ANTES DA EXECUÇÃO') anexada às pranchas de marcenaria antes da fabricação — alta confiança: 7/8 projetos."
+    - "Instrução explícita de ocultar fiação/LED ('NÃO DEIXAR LED APARENTE' / 'NÃO DEIXAR FIAÇÃO APARENTE') nas cavas de iluminação embutida — confiança média-alta: nota explícita em 4/8 projetos; o elemento fita de LED embutida em si está presente em 8/8 projetos."
+    - "Nota geral de coordenação entre plano de forro e plano de iluminação, reaproveitada quase verbatim entre projetos executivos — confiança média: frase idêntica encontrada em 3/8 projetos (ClinicaPatricia-2026, Gabi-2024, Patricia-Rafael-2025)."
+  lighting:
+    - "Fita de LED embutida e contínua como solução dominante de iluminação indireta — alta confiança: 8/8 projetos."
+    - "Spots embutidos como iluminação geral complementar — alta confiança: 7/8 projetos (contagem restrita ao termo isolado 'SPOT'; incluindo variações/compostos, 8/8)."
+    - "Pendentes como elemento de iluminação decorativa pontual (sobre bancadas, mesas, aparadores) — alta confiança: 6/8 projetos."
+    - "Temperatura de cor da luz especificada consistentemente em 2700K ou 3000K (luz quente) — alta confiança: 8/8 projetos."
+    - "Trilho eletrificado como solução pontual, não universal — confiança média: 3/8 projetos (ClinicaPatricia-2026, Gabi-2024, Patricia-Rafael-2025)."
+  materiality:
+    - "MDF (majoritariamente linha Duratex, com nomes de cor específicos como 'Carvalho Hanover', 'Cinza Fóssil', 'Branco Diamante') como substrato dominante de marcenaria — alta confiança: MDF em 8/8 projetos; marca Duratex citada em 8/8 projetos."
+    - "Mármore/pedra natural especificado em bancadas — alta confiança: 7/8 projetos."
+    - "Porcelanato em revestimentos de piso/parede — alta confiança: 7/8 projetos."
+    - "Vidro em boxes, guarda-corpos e tampos — alta confiança: 8/8 projetos."
+    - "Puxadores e perfis metálicos com acabamento dourado fosco ou preto fosco, frequentemente da marca Zen Design — alta confiança: puxador especificado em 8/8 projetos; marca Zen Design em 7/8 projetos."
+    - "Tinta da marca Suvinil especificada nominalmente — alta confiança: 7/8 projetos (marcas alternativas como Coral aparecem só em ClinicaPatricia-2026 — preferência pontual, não assinatura)."
+  sustainability: []
+
+signature_patterns:
+  colors:
+    - "Branco/off-white como base cromática dominante das paredes e marcenaria clara — alta confiança (branco: 8/8 projetos, 686 ocorrências; off-white: 5/8 projetos, 107 ocorrências)."
+    - "Bege como tom neutro complementar recorrente — alta confiança (6/8 projetos, 58 ocorrências)."
+    - "Preto / preto fosco como cor de contraste em metais, perfis e rodapés — alta confiança (preto: 7-8/8 projetos, 426 ocorrências; preto fosco: 6/8 projetos, 137 ocorrências)."
+    - "Dourado / dourado fosco como metal de assinatura em puxadores, perfis tubulares e detalhes decorativos — alta confiança (dourado: 8/8 projetos, 481 ocorrências; dourado fosco especificamente: 6/8 projetos, 117 ocorrências)."
+    - "Tons de madeira nogueira/freijó como acento quente pontual — confiança média (3/8 projetos: ClinicaPatricia-2026, Rafael-Mariana-2026, Sandra; 114 ocorrências)."
+  materials:
+    - "MDF Duratex como substrato de marcenaria em praticamente toda peça (painéis, prateleiras, portas) — alta confiança (8/8 projetos)."
+    - "Gesso em painéis, sancas e forros rebaixados — alta confiança (7/8 projetos, 521 ocorrências)."
+    - "Painel ripado (ripas de madeira/MDF) como revestimento de parede ou frente de mobiliário — alta confiança (7/8 projetos: ClinicaPatricia-2026, Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Sandra, Tavora-2026; 145 ocorrências)."
+    - "Mármore/pedra natural em bancadas de banheiro, cozinha e lavabo — alta confiança (7/8 projetos)."
+    - "Porcelanato em pisos e revestimentos — alta confiança (7/8 projetos)."
+    - "Metalon/perfil metálico tubular como estrutura decorativa (aparadores, painéis, guarda-corpos) — confiança média-alta: 4/8 projetos (ClinicaPatricia-2026, Gabi-2024, Patricia-Rafael-2025, Sandra), volume de citações baixo (25 ocorrências) — acompanhar em novos projetos antes de tratar como regra forte."
+    - "Espelho como revestimento decorativo (não só de banheiro) — confiança média: 3/8 projetos (ClinicaPatricia-2026, Rafael-Mariana-2026, Sandra; 114 ocorrências)."
+  furniture:
+    - "Bancada custom com cuba de apoio ou esculpida — alta confiança (bancada: 8/8 projetos; cuba: 8/8 projetos)."
+    - "Painel de TV em marcenaria como peça central da sala — alta confiança (6/8 projetos: Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Rafael-Mariana-2026, Sandra)."
+    - "Ilha de cozinha — alta confiança (6/8 projetos: ClinicaPatricia-2026, Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Sandra)."
+    - "Cabeceira estofada/em marcenaria com painel de fundo como peça central do quarto — alta confiança (6/8 projetos: Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025, Rafael-Mariana-2026, Sandra)."
+    - "Closet integrado — confiança média: 3/8 projetos (Gabi-2024, Patricia-Rafael-2025, Sandra)."
+    - "Aparador/buffet combinando com mesa de jantar — confiança média: termo explícito 'mesa de jantar' em 4/8 projetos (Clodoaldo-Vanusa-2025, Debora-Deivisson-2026, Patricia-Rafael-2025, Rafael-Mariana-2026), com baixo volume (11 ocorrências) — evidência ainda limitada para o ambiente de jantar como um todo."
+  joinery:
+    - "Nichos embutidos em painéis de marcenaria ou gesso — alta confiança (8/8 projetos, 185 ocorrências)."
+    - "Painel ripado como frente de marcenaria/revestimento — alta confiança (7/8 projetos, ver signature_patterns.materials)."
+    - "Puxadores especificados com marca e acabamento definidos (modelo + cor + marca, ex.: 'PUXADOR PLYMOUTH DOURADO - ZEN DESIGN') — alta confiança (puxador: 8/8 projetos; marca Zen Design: 7/8 projetos)."
+    - "Perfis metálicos de acabamento dourado fosco ou preto fosco emoldurando painéis e aparadores — alta confiança (ver signature_patterns.colors)."
+    - "Perfil de alumínio estrutural em portas/painéis de correr — confiança média: 3/8 projetos (Rafael-Mariana-2026, Patricia-Rafael-2025, Clodoaldo-Vanusa-2025), volume baixo (7 ocorrências)."
+  lighting:
+    - "Fita de LED embutida contínua, com instrução de não deixar LED/fiação aparente — alta confiança (ver principles.lighting)."
+    - "Spots embutidos como iluminação geral — alta confiança (ver principles.lighting)."
+    - "Pendentes como iluminação decorativa pontual — alta confiança (ver principles.lighting)."
+    - "Temperatura de cor 2700K/3000K especificada em quase toda prancha de iluminação — alta confiança (8/8 projetos, 144-149 ocorrências)."
+  composition:
+    - "Sanca/rasgo de luz perimetral integrado ao forro rebaixado — alta confiança (6/8 projetos)."
+    - "Prancha de detalhamento com sequência fixa: vista topo, vista A, vista B, perspectiva (rotulada 'PESPECTIVA'), cada uma com escala própria — alta confiança (8/8 projetos)."
+    - "Contraste entre painéis retilíneos (ripado, liso) e recortes/curvas orgânicas pontuais — confiança média-alta (6/8 projetos para o princípio formal amplo)."
+  styling:
+    - "Uso de tapete, almofada e vaso como elementos de composição/estilização final dos ambientes renderizados — confiança média-alta (7/8 projetos, 52 ocorrências), mas sem detalhamento suficiente de cor/padronagem no texto extraído para virar regra prescritiva — recomenda-se revisão de imagens (pages/embedded-images) pela arquiteta em uma passada futura."
+
+room_patterns:
+  sala:
+    - "Painel de TV em marcenaria (MDF Duratex) com nicho e/ou fita de LED perimetral — alta confiança (6/8 projetos)."
+    - "Sanca/forro rebaixado com iluminação indireta 2700K/3000K — alta confiança (6/8 projetos)."
+  cozinha:
+    - "Ilha central — alta confiança (6/8 projetos)."
+    - "Bancada em mármore/pedra com cuba — alta confiança (7-8/8 projetos)."
+  jantar:
+    - "Aparador/buffet em marcenaria combinando com a mesa, com puxador metálico dourado — confiança média (evidência direta de 'mesa de jantar' em 4/8 projetos; volume de citações ainda baixo)."
+  quarto:
+    - "Cabeceira estofada ou em painel de marcenaria como peça central — alta confiança (6/8 projetos)."
+    - "Closet integrado, quando presente no programa — confiança média (3/8 projetos)."
+  banheiro:
+    - "Bancada em mármore/pedra com cuba de apoio ou esculpida — alta confiança (7-8/8 projetos)."
+    - "Box de vidro — alta confiança (vidro em 8/8 projetos; termo 'box'/'banheira' em 6/8 projetos)."
+    - "Espelho decorativo com moldura/perfil metálico — confiança média (3/8 projetos: ClinicaPatricia-2026, Rafael-Mariana-2026, Sandra)."
+  fachada:
+    - "Evidência insuficiente para residências: menções a fachada concentram-se em 2 projetos comerciais (ClinicaPatricia-2026 — clínica, Tavora-2026 — loja) mais uma citação isolada em Patricia-Rafael-2025. Não generalizar para fachada residencial sem mais amostras — ver confidence_notes.insufficient_evidence."
+  area_externa:
+    - "Elementos de jardim/paisagismo/área gourmet aparecem em 4/8 projetos (ClinicaPatricia-2026, Debora-Deivisson-2026, Gabi-2024, Patricia-Rafael-2025) — confiança média, sem detalhamento suficiente para regras específicas de composição de área externa."
+
+avoid_patterns: []
+
+conditional_patterns:
+  - "Quando o ambiente é sala de estar/TV, o padrão dominante é painel de marcenaria com nicho para TV e fita de LED perimetral (6/8 projetos)."
+  - "Quando o ambiente é banheiro, lavabo ou cozinha, o padrão dominante é bancada em mármore/pedra com cuba de apoio ou esculpida (7-8/8 projetos)."
+  - "Quando há espelho decorativo em áreas sociais ou banheiros, ele tende a vir emoldurado por perfil metálico dourado fosco ou preto fosco (evidenciado em ClinicaPatricia-2026, Rafael-Mariana-2026 e Sandra — 3/8 projetos)."
+  - "Quando o projeto é comercial (clínica/loja, como ClinicaPatricia-2026 e Tavora-2026), a documentação inclui prancha dedicada de fachada e um índice de pranchas por ambiente no formato 'PLANTA DE LAYOUT E TÉCNICA <AMBIENTE>' + 'VISTAS <AMBIENTE>'; essa estrutura de fachada comercial não deve ser presumida para fachadas residenciais, que não têm evidência equivalente no acervo atual."
+  - "Quando a prancha é de detalhamento de marcenaria (não de layout/planta), ela segue a convenção fixa: vista topo + vista A + vista B + perspectiva ('PESPECTIVA'), cada uma com escala própria, mais nota de confirmação de medidas em obra (8/8 projetos)."
+
+documentation_style:
+  sheet_structure:
+    - "Bloco de identificação padrão em toda prancha: 'Jeniffer Melo Arquitetura', telefone (31) 992643359, e-mail jeniffermeloarq@gmail.com, campos PROJETO/DATA/FOLHA/CLIENTE/DESENHO/ARQUITETA e registro 'CAU - A186976-0' — presente em 18/18 documentos, 8/8 projetos."
+    - "Numeração de folha no formato 'NN/total' (ex.: 87/131, 01/81) consistente em todos os cadernos — alta confiança (8/8 projetos)."
+    - "Cadernos de detalhamento abrem com folha de rosto 'CADERNO DE DETALHAMENTO'; quando capturado em texto, o sumário lista seções por ambiente com página inicial (ex.: sandra-sg-det-geral, página 2: '3. SALA; LAVABO / 23. COZINHA / 43. ÁREA DE SERVIÇO / 49. GOURMET / 67. MASTER / 90. SUITE S1 / 103. SUITE S2 / 118. ESCRITÓRIO / 126. ESPELHOS / 129. MARMORARIA / 143. NOTAS') — confiança média-alta (estrutura clara em 2 documentos, ecos parciais em outros)."
+    - "Cadernos executivos organizam pranchas na sequência: perspectiva → planta de demolição/construção → planta de piso/acabamentos → pontos hidráulicos → pontos elétricos → planta de forro → pontos de iluminação → imagens 3D → depois, por ambiente: 'PLANTA DE LAYOUT E TÉCNICA <AMBIENTE>' + 'VISTAS <AMBIENTE>' → fachada → notas finais — evidência textual completa em clinicapatricia-2026-layout-a4-vistas (páginas 1-2); nomenclatura parcialmente ecoada em gabi-2024-executivo-a3---geral, patricia-rafael-2025-executivo-pr-a3 e rafael-mariana-2026-rafael-e-mariana-executivo — confiança média (provavelmente é o padrão real da arquiteta, mas a amostra textual direta e completa é mais forte em 1 projeto; outros podem ter a mesma estrutura em desenho vetorial não capturado como texto de índice)."
+    - "Cada prancha de detalhamento de marcenaria segue o padrão: vista topo + vista A + vista B (todas com escala explícita, ex. 'ESCALA 1:20'/'ESCALA 1:25') + perspectiva sem escala — alta confiança (8/8 projetos). Exemplo: rafael-mariana-2026-detalhamento-rm, página 3."
+  annotation_style:
+    - "Grafia consistente 'PESPECTIVA' (sem o 'r') em vez de 'PERSPECTIVA' como rótulo de vista tridimensional — hábito de nomenclatura pessoal recorrente, alta confiança (392 ocorrências em 14 documentos, 8/8 projetos). Exemplo: rafael-mariana-2026-detalhamento-rm, página 2, campo DESENHO = 'Pespectiva'."
+    - "Nota de alerta padronizada em maiúsculas com marcador '**', do tipo '**CONFIRMAR MEDIDAS NO LOCAL ANTES DA EXECUÇÃO', anexada a pranchas de marcenaria — alta confiança (7/8 projetos). Exemplo: rafael-mariana-2026-detalhamento-rm, página 3."
+    - "Nota de coordenação repetida quase verbatim em cadernos executivos: 'A EXECUÇÃO DO FORRO DEVE SER REALIZADA CONJUNTAMENTE COM A PLANTA DE ILUMINAÇÃO PARA EVITAR INCOMPATIBILIDADES ENTRE PONTOS DE LUZ E RECORTES NO GESSO' — confiança média (3/8 projetos: ClinicaPatricia-2026, Gabi-2024, Patricia-Rafael-2025)."
+    - "Callouts de material seguem o padrão '<PEÇA> EM/NO <MATERIAL> <COR> - <MARCA>' (ex.: 'APARADOR EM MDF BRANCO DIAMANTE - DURATEX', 'PUXADOR PLYMOUTH DOURADO- ZEN DESING', 'PERFIL METÁLICO DOURADO FOSCO') — alta confiança (8/8 projetos). Exemplo: gabi-2024-detalhamento-final-ga, página 2 (folha 01/81)."
+  specification_depth:
+    - "Marca de material especificada explicitamente em vez de apenas o material genérico (Duratex para MDF, Zen Design para puxadores, Suvinil para tinta) — alta confiança (Duratex 8/8; Zen Design 7/8; Suvinil 7/8 projetos)."
+    - "Temperatura de cor da iluminação (2700K/3000K) sempre especificada nas cavas de LED e spots — alta confiança (8/8 projetos)."
+    - "Cotas numéricas detalhadas acompanham cada elemento de marcenaria (larguras/alturas em cm ao lado de cada peça no desenho) — presença universal nas amostras revisadas; não foi identificada tabela de quantitativos separada no texto extraído (ver table_patterns)."
+  table_patterns:
+    - "Não foram identificadas tabelas tabulares clássicas (colunas do tipo ITEM/QTD/MATERIAL) no texto extraído; quantitativos e materiais aparecem como legendas soltas próximas às cotas do desenho técnico — confiança média (observação consistente na amostra, mas pode refletir limitação da extração de texto de PDFs de CAD, não necessariamente ausência real de tabelas no desenho vetorial)."
+    - "Sumário de pranchas em lista numerada funciona como índice (ex.: '69. PLANTA DE LAYOUT E TÉCNICA LAVABO / 70. VISTAS LAVABO') — confiança média (evidenciado claramente em ClinicaPatricia-2026 e Sandra)."
+
+confidence_notes:
+  high_confidence:
+    - "MDF (marca Duratex) como substrato de marcenaria — 8/8 projetos."
+    - "Fita de LED embutida com temperatura de cor 2700K/3000K — 8/8 projetos."
+    - "Nichos embutidos em marcenaria/gesso — 8/8 projetos."
+    - "Bancada com cuba em mármore/pedra — 7-8/8 projetos."
+    - "Vidro em boxes/guarda-corpos/tampos — 8/8 projetos."
+    - "Paleta neutra (branco/off-white/bege) com metal dourado fosco e preto fosco de contraste — 6-8/8 projetos."
+    - "Painel ripado como revestimento — 7/8 projetos."
+    - "Puxador com marca e acabamento definidos, majoritariamente Zen Design — 7-8/8 projetos."
+    - "Bloco de identificação de prancha e numeração 'NN/total' padronizados — 18/18 documentos, 8/8 projetos."
+    - "Grafia 'PESPECTIVA' (hábito pessoal de nomenclatura) — 8/8 projetos."
+    - "Convenção de prancha com vista topo + vista A + vista B + perspectiva, cada uma com escala própria — 8/8 projetos."
+  medium_confidence:
+    - "Metalon/perfil metálico tubular como estrutura decorativa — 4/8 projetos, volume baixo (25 ocorrências)."
+    - "Espelho decorativo com moldura metálica — 3/8 projetos."
+    - "Trilho eletrificado — 3/8 projetos."
+    - "Perfil de alumínio estrutural em portas/painéis — 3/8 projetos, volume baixo (7 ocorrências)."
+    - "Nogueira/freijó como acento de madeira — 3/8 projetos."
+    - "Closet integrado — 3/8 projetos."
+    - "Nota de coordenação forro/iluminação reaproveitada verbatim — 3/8 projetos."
+    - "Estrutura completa de sumário executivo ('PLANTA DE LAYOUT E TÉCNICA <AMBIENTE>' etc.) — evidência textual completa em apenas 1 projeto, ecos parciais em outros 3."
+    - "Elementos de estilização (tapete/almofada/vaso) — 7/8 projetos, mas sem detalhamento suficiente de cor/padronagem."
+  insufficient_evidence:
+    - "'Branco Gatinho efeito veludo' como cor/acabamento de pintura — aparece apenas em ClinicaPatricia-2026 (88 ocorrências, 3 documentos, 1 client_project). É preferência daquele cliente/projeto específico, não deve ser tratada como assinatura da arquiteta enquanto não aparecer em outros projetos."
+    - "Efeito 'veludo' (VELVET) de pintura de forma geral — 84 ocorrências concentradas em ClinicaPatricia-2026 (83) com apenas 1 menção isolada em Patricia-Rafael-2025; evidência insuficiente (2 client_projects, fortemente desbalanceado) para tratar como padrão geral."
+    - "'Grafite'/'Chumbo' como cor de marcenaria — aparece apenas em Gabi-2024 (1 client_project). Preferência pontual do cliente, não assinatura."
+    - "Marca de tinta 'Coral' — aparece apenas em ClinicaPatricia-2026 (1 client_project). Preferência pontual do cliente."
+    - "avoid_patterns: não foi possível preencher com segurança a partir do acervo. Os documentos registram decisões executadas, não decisões recusadas; não foram encontradas notas explícitas do tipo 'evitar cor/material X' na amostra revisada (as ocorrências de 'evitar' encontradas referem-se a coordenação técnica de obra — ex.: evitar incompatibilidade entre forro e iluminação, evitar retorno de água — não a preferências estéticas). Recomenda-se que a arquiteta informe explicitamente o que evita."
+    - "room_patterns.fachada: evidência limitada a 2 projetos comerciais (ClinicaPatricia-2026 — clínica, Tavora-2026 — loja) mais uma citação isolada em Patricia-Rafael-2025. Não há evidência de fachada residencial no acervo atual — não generalizar."
+    - "signature_patterns.styling e composição de renders (cor de tapete, padronagem de almofada etc.): o texto extraído é predominantemente técnico; para aprofundar esse eixo seria necessário revisar sistematicamente as imagens de página e embedded-images de cada documento, o que não foi feito de forma exaustiva nesta passada (apenas leitura textual ampla, conforme escopo da tarefa)."
+    - "principles.sustainability: nenhuma evidência textual de práticas de sustentabilidade (materiais certificados, reaproveitamento, eficiência energética além da especificação de LED) foi encontrada no acervo atual."
+    - "scope.client_segments: não há dados textuais suficientes no acervo para caracterizar segmento socioeconômico dos clientes com segurança; evitada inferência especulativa."
+    - "Amostra geral: este Design DNA foi construído a partir de apenas 8 projetos-fonte (18 documentos, ~1201 páginas), abaixo dos 10-20 projetos recomendados como base representativa mínima. Todo o conteúdo acima é preliminar/rascunho e deve ser revisado, confirmado ou corrigido pela arquiteta antes de ser tratado como regra definitiva (status permanece 'in-review')."

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+docs/knowledge-base/raw-pdfs/*
+!docs/knowledge-base/raw-pdfs/.gitkeep
+docs/knowledge-base/extracted/*
+!docs/knowledge-base/extracted/.gitkeep
+docs/clients/*/output/**
+!docs/clients/_template/output/**
+!docs/clients/*/output/**/.gitkeep

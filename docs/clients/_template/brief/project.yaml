@@ -1,0 +1,10 @@
+project_id: exemplo-2026
+client_name: Cliente Exemplo
+project_type: arquitetura-e-interiores
+address: ""
+status: intake
+rooms:
+  - room_id: sala
+    name: Sala de estar e jantar
+    floor: terreo
+    views_requested: 2
